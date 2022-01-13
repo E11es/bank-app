@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -38,12 +39,22 @@ public class ClientForm extends FormLayout {
         binder.bindInstanceFields(this);
         bank.setItems(banks);
         bank.setItemLabelGenerator(Bank::getName);
+        firstName.setRequired(true);
+        lastName.setRequired(true);
+        phone.setRequired(true);
+        email.setRequired(true);
+        passport.setRequired(true);
+        bank.setRequired(true);
         binder.forField(phone)
-                .withValidator(new RegexpValidator("Only 0-9 allowed", "\\d*"))
+                .withValidator(new RegexpValidator("Only 0-9 allowed", "\\d+"))
                 .bind(Client::getPhone, Client::setPhone);
         binder.forField(passport)
-                .withValidator(new RegexpValidator("Only 0-9 allowed", "\\d*"))
+                .withValidator(new RegexpValidator("Only 0-9 allowed", "\\d+"))
                 .bind(Client::getPassport, Client::setPassport);
+        binder.forField(email)
+                .withValidator(new RegexpValidator("Invalid email", "^[^@\\s]+@[^@\\s\\.]+\\.[^@\\.\\s]+$"))
+                .bind(Client::getEmail, Client::setEmail);
+
         add(firstName,
                 lastName,
                 phone,
@@ -77,7 +88,8 @@ public class ClientForm extends FormLayout {
             binder.writeBean(client);
             fireEvent(new SaveEvent(this, client));
         } catch (ValidationException e) {
-            e.printStackTrace();
+            Notification notification = new Notification("All fields are required!", 1000*3, Notification.Position.MIDDLE);
+            notification.open();
         }
     }
 

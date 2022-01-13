@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -34,6 +35,7 @@ public class CreditForm extends FormLayout {
         addClassName("credit-form");
         setSizeFull();
         binder.bindInstanceFields(this);
+        bank.setRequired(true);
         binder.forField(limit)
                 .withValidator(Objects::nonNull, "Limit cannot be null")
                 .withValidator(integer -> integer > 0, "Limit cannot be 0 or lower")
@@ -77,7 +79,8 @@ public class CreditForm extends FormLayout {
             binder.writeBean(credit);
             fireEvent(new SaveEvent(this, credit));
         } catch (ValidationException e) {
-            e.printStackTrace();
+            Notification notification = new Notification("All fields are required!", 1000*3, Notification.Position.MIDDLE);
+            notification.open();
         }
     }
 

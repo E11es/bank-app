@@ -10,11 +10,13 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.RegexpValidator;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
@@ -38,6 +40,10 @@ public class BankForm extends FormLayout {
         clientGrid.setColumns("firstName", "lastName", "phone", "email", "passport");
         creditGrid.setItems(credits);
         creditGrid.setColumns("limit", "interestRate");
+        binder.forField(name)
+                .withValidator(new RegexpValidator("Only letters allowed", "\\[a-zA-Z]+"))
+                .bind(Bank::getName, Bank::setName);
+
         add(name, createButtonsLayout(), clientGrid, creditGrid);
     }
 
@@ -65,7 +71,7 @@ public class BankForm extends FormLayout {
             binder.writeBean(bank);
             fireEvent(new SaveEvent(this, bank));
         } catch (ValidationException e) {
-            e.printStackTrace();
+            //ignore
         }
     }
 

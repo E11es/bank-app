@@ -11,6 +11,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -97,7 +98,8 @@ public class CreditOfferForm extends FormLayout {
             binder.writeBean(offer);
             fireEvent(new SaveEvent(this, offer));
         } catch (ValidationException e) {
-            e.printStackTrace();
+            Notification notification = new Notification("All fields are required!", 1000*3, Notification.Position.MIDDLE);
+            notification.open();
         }
     }
 
