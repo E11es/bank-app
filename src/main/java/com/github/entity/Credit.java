@@ -54,7 +54,7 @@ public class Credit {
         this.bank = bank;
     }
 
-    public String getCreditLimit(){
+    public String getCreditLimit() {
         return getLimit().toString();
     }
 }

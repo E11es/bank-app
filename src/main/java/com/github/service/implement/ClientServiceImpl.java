@@ -20,23 +20,23 @@ public class ClientServiceImpl implements ClientService {
     private BankRepository bankRepository;
 
     @Override
-    public List<Client> findAll(){
+    public List<Client> findAll() {
         return clientRepository.findAll();
     }
 
     @Override
-    public void delete(Client client){
+    public void delete(Client client) {
         clientRepository.delete(client);
     }
 
     @Override
-    public void save(Client client){
+    public void save(Client client) {
         clientRepository.saveAndFlush(client);
     }
 
     @Override
     public List<Client> findByBank(Bank bank) {
-        if(bank==null|| bank.getId()==null|| !bankRepository.existsById(bank.getId())){
+        if (bank == null || bank.getId() == null || !bankRepository.existsById(bank.getId())) {
             return new ArrayList<>();
         }
         return clientRepository.findByBank(bank);

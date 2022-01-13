@@ -2,12 +2,12 @@ package com.github.view;
 
 import com.github.entity.Bank;
 import com.github.entity.Credit;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
@@ -21,16 +21,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class CreditForm extends FormLayout {
-    private Credit credit;
     IntegerField limit = new IntegerField("Credit limit");
     NumberField interestRate = new NumberField("Interest rate");
     ComboBox<Bank> bank = new ComboBox<>("Bank");
-
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
-
     Binder<Credit> binder = new BeanValidationBinder<>(Credit.class);
+    private Credit credit;
 
     public CreditForm(List<Bank> banks) {
         addClassName("credit-form");
@@ -83,8 +81,12 @@ public class CreditForm extends FormLayout {
         }
     }
 
+    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType, ComponentEventListener<T> listener) {
+        return getEventBus().addListener(eventType, listener);
+    }
+
     public static abstract class CreditFormEvent extends ComponentEvent<CreditForm> {
-        private Credit credit;
+        private final Credit credit;
 
         public CreditFormEvent(CreditForm source, Credit credit) {
             super(source, false);
@@ -112,9 +114,5 @@ public class CreditForm extends FormLayout {
         CloseEvent(CreditForm source) {
             super(source, null);
         }
-    }
-
-    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType, ComponentEventListener<T> listener) {
-        return getEventBus().addListener(eventType, listener);
     }
 }

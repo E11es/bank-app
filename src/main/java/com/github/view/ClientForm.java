@@ -1,13 +1,13 @@
 package com.github.view;
 
 import com.github.entity.Bank;
-import com.vaadin.flow.component.button.Button;
 import com.github.entity.Client;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -20,19 +20,17 @@ import com.vaadin.flow.shared.Registration;
 import java.util.List;
 
 public class ClientForm extends FormLayout {
-    private Client client;
     TextField firstName = new TextField("First name");
     TextField lastName = new TextField("Last name");
     TextField phone = new TextField("Phone number");
     TextField email = new TextField("Email");
     TextField passport = new TextField("Passport number");
     ComboBox<Bank> bank = new ComboBox<>("Bank");
-
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
-
     Binder<Client> binder = new BeanValidationBinder<>(Client.class);
+    private Client client;
 
     public ClientForm(List<Bank> banks) {
         addClassName("client-form");
@@ -83,8 +81,12 @@ public class ClientForm extends FormLayout {
         }
     }
 
+    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType, ComponentEventListener<T> listener) {
+        return getEventBus().addListener(eventType, listener);
+    }
+
     public static abstract class ClientFormEvent extends ComponentEvent<ClientForm> {
-        private Client client;
+        private final Client client;
 
         public ClientFormEvent(ClientForm source, Client client) {
             super(source, false);
@@ -112,9 +114,5 @@ public class ClientForm extends FormLayout {
         CloseEvent(ClientForm source) {
             super(source, null);
         }
-    }
-
-    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType, ComponentEventListener<T> listener) {
-        return getEventBus().addListener(eventType, listener);
     }
 }

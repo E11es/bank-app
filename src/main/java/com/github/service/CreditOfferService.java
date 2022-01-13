@@ -8,7 +8,10 @@ import java.util.List;
 public interface CreditOfferService {
 
     List<CreditOffer> findAll();
+
     void delete(CreditOffer offer);
+
     void save(CreditOffer offer);
+
     List<PaymentSchedule> getPaymentsScheduleByOffer(CreditOffer offer);
 }

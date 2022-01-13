@@ -20,23 +20,23 @@ public class CreditServiceImpl implements CreditService {
     private BankRepository bankRepository;
 
     @Override
-    public List<Credit> findAll(){
+    public List<Credit> findAll() {
         return creditRepository.findAll();
     }
 
     @Override
-    public void delete(Credit credit){
+    public void delete(Credit credit) {
         creditRepository.delete(credit);
     }
 
     @Override
-    public void save(Credit credit){
+    public void save(Credit credit) {
         creditRepository.saveAndFlush(credit);
     }
 
     @Override
     public List<Credit> findByBank(Bank bank) {
-        if(bank==null|| bank.getId()==null|| !bankRepository.existsById(bank.getId())){
+        if (bank == null || bank.getId() == null || !bankRepository.existsById(bank.getId())) {
             return new ArrayList<>();
         }
         return creditRepository.findByBank(bank);

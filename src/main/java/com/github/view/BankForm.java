@@ -21,7 +21,6 @@ import java.util.List;
 
 
 public class BankForm extends FormLayout {
-    private Bank bank;
     TextField name = new TextField("Name");
     Grid<Client> clientGrid = new Grid<>(Client.class);
     Grid<Credit> creditGrid = new Grid<>(Credit.class);
@@ -29,11 +28,7 @@ public class BankForm extends FormLayout {
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
     Binder<Bank> binder = new BeanValidationBinder<>(Bank.class);
-
-    public void setBank(Bank bank){
-        this.bank=bank;
-        binder.readBean(bank);
-    }
+    private Bank bank;
 
     public BankForm(List<Client> clients, List<Credit> credits) {
         addClassName("bank-form");
@@ -46,7 +41,12 @@ public class BankForm extends FormLayout {
         add(name, createButtonsLayout(), clientGrid, creditGrid);
     }
 
-    private HorizontalLayout createButtonsLayout(){
+    public void setBank(Bank bank) {
+        this.bank = bank;
+        binder.readBean(bank);
+    }
+
+    private HorizontalLayout createButtonsLayout() {
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
@@ -69,9 +69,13 @@ public class BankForm extends FormLayout {
         }
     }
 
+    public <T extends ComponentEvent<?>> Registration addListener
+            (Class<T> eventType, ComponentEventListener<T> listener) {
+        return getEventBus().addListener(eventType, listener);
+    }
 
     public static abstract class BankFormEvent extends ComponentEvent<BankForm> {
-        private Bank bank;
+        private final Bank bank;
 
         public BankFormEvent(BankForm source, Bank bank) {
             super(source, false);
@@ -99,11 +103,6 @@ public class BankForm extends FormLayout {
         CloseEvent(BankForm source) {
             super(source, null);
         }
-    }
-
-    public <T extends ComponentEvent<?>> Registration addListener
-            (Class<T> eventType, ComponentEventListener<T> listener) {
-        return getEventBus().addListener(eventType, listener);
     }
 }
 

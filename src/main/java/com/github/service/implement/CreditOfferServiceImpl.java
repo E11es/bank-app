@@ -20,23 +20,23 @@ public class CreditOfferServiceImpl implements CreditOfferService {
     private PaymentScheduleRepository paymentScheduleRepository;
 
     @Override
-    public List<CreditOffer> findAll(){
+    public List<CreditOffer> findAll() {
         return creditOfferRepository.findAll();
     }
 
     @Override
-    public void delete(CreditOffer creditOffer){
+    public void delete(CreditOffer creditOffer) {
         creditOfferRepository.delete(creditOffer);
     }
 
     @Override
-    public void save(CreditOffer creditOffer){
+    public void save(CreditOffer creditOffer) {
         creditOfferRepository.saveAndFlush(creditOffer);
     }
 
     @Override
     public List<PaymentSchedule> getPaymentsScheduleByOffer(CreditOffer offer) {
-        if(offer==null || offer.getId()==null || !creditOfferRepository.existsById(offer.getId())){
+        if (offer == null || offer.getId() == null || !creditOfferRepository.existsById(offer.getId())) {
             return new ArrayList<>();
         }
         return paymentScheduleRepository.findByOfferMapped(offer);

@@ -16,14 +16,12 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
-
 import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
 import java.util.Objects;
 
 public class CreditOfferForm extends FormLayout {
-    private CreditOffer offer;
     ComboBox<Client> client = new ComboBox<>("Client");
     ComboBox<Credit> credit = new ComboBox<>("Credit");
     IntegerField creditSum = new IntegerField("Credit sum");
@@ -33,6 +31,7 @@ public class CreditOfferForm extends FormLayout {
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
     Binder<CreditOffer> binder = new BeanValidationBinder<>(CreditOffer.class);
+    private CreditOffer offer;
 
     public CreditOfferForm(List<Client> clients, CreditService creditService) {
         addClassName("credit-offer-form");
@@ -102,9 +101,13 @@ public class CreditOfferForm extends FormLayout {
         }
     }
 
+    public <T extends ComponentEvent<?>> Registration addListener
+            (Class<T> eventType, ComponentEventListener<T> listener) {
+        return getEventBus().addListener(eventType, listener);
+    }
 
     public static abstract class OfferFormEvent extends ComponentEvent<CreditOfferForm> {
-        private CreditOffer offer;
+        private final CreditOffer offer;
 
         public OfferFormEvent(CreditOfferForm source, CreditOffer offer) {
             super(source, false);
@@ -132,10 +135,5 @@ public class CreditOfferForm extends FormLayout {
         CloseEvent(CreditOfferForm source) {
             super(source, null);
         }
-    }
-
-    public <T extends ComponentEvent<?>> Registration addListener
-            (Class<T> eventType, ComponentEventListener<T> listener) {
-        return getEventBus().addListener(eventType, listener);
     }
 }

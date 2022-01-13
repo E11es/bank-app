@@ -8,7 +8,10 @@ import java.util.List;
 public interface PaymentScheduleService {
 
     List<PaymentSchedule> findAll();
+
     void delete(PaymentSchedule paymentSchedule);
+
     void save(PaymentSchedule paymentSchedule);
+
     List<PaymentSchedule> generatePaymentSchedule(CreditOffer offer);
 }

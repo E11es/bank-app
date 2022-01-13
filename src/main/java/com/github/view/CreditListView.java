@@ -14,9 +14,9 @@ import com.vaadin.flow.router.Route;
 @Route(value = "credits")
 @PageTitle("Credits | Application")
 public class CreditListView extends VerticalLayout {
-    private CreditServiceImpl creditService;
-    private Grid<Credit> grid = new Grid<>(Credit.class);
-    private CreditForm creditForm;
+    private final CreditServiceImpl creditService;
+    private final Grid<Credit> grid = new Grid<>(Credit.class);
+    private final CreditForm creditForm;
 
     public CreditListView(CreditServiceImpl creditService, BankServiceImpl bankService) {
         this.creditService = creditService;

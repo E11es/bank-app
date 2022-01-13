@@ -1,11 +1,11 @@
 package com.github.view;
 
+import com.github.entity.CreditOffer;
 import com.github.service.ClientService;
 import com.github.service.CreditOfferService;
 import com.github.service.CreditService;
 import com.github.service.PaymentScheduleService;
 import com.vaadin.flow.component.button.Button;
-import com.github.entity.CreditOffer;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.function.ValueProvider;
@@ -22,7 +22,7 @@ public class CreditOfferListView extends VerticalLayout {
 
     public CreditOfferListView(CreditOfferService offerService, PaymentScheduleService paymentService, ClientService clientService, CreditService creditService) {
         this.offerService = offerService;
-        this.paymentScheduleService=paymentService;
+        this.paymentScheduleService = paymentService;
         setSizeFull();
         configureGrid();
         addClassName("credit-offer-list-view");

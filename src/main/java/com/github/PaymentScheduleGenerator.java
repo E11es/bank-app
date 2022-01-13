@@ -15,7 +15,7 @@ public class PaymentScheduleGenerator {
     private CreditOfferRepository creditOfferRepository;
 
     @EventListener
-    public void generate(ContextRefreshedEvent refreshedEvent){
+    public void generate(ContextRefreshedEvent refreshedEvent) {
         creditOfferRepository.findAll()
                 .forEach(offer -> paymentScheduleService.generatePaymentSchedule(offer));
     }

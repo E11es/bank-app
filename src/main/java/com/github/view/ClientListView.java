@@ -14,9 +14,9 @@ import com.vaadin.flow.router.Route;
 @Route(value = "clients")
 @PageTitle("Clients | Application")
 public class ClientListView extends VerticalLayout {
-    private ClientService clientService;
-    private Grid<Client> grid = new Grid<>(Client.class);
-    private ClientForm clientForm;
+    private final ClientService clientService;
+    private final Grid<Client> grid = new Grid<>(Client.class);
+    private final ClientForm clientForm;
 
     public ClientListView(ClientService clientService, BankService bankService) {
         this.clientService = clientService;

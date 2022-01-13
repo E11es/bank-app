@@ -81,7 +81,7 @@ public class Client {
         this.bank = bank;
     }
 
-    public String getDisplayName(){
-        return firstName+" "+lastName;
+    public String getDisplayName() {
+        return firstName + " " + lastName;
     }
 }

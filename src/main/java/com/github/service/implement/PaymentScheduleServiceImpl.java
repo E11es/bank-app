@@ -21,17 +21,17 @@ public class PaymentScheduleServiceImpl implements PaymentScheduleService {
     private PaymentScheduleRepository paymentScheduleRepository;
 
     @Override
-    public List<PaymentSchedule> findAll(){
+    public List<PaymentSchedule> findAll() {
         return paymentScheduleRepository.findAll();
     }
 
     @Override
-    public void delete(PaymentSchedule paymentSchedule){
+    public void delete(PaymentSchedule paymentSchedule) {
         paymentScheduleRepository.delete(paymentSchedule);
     }
 
     @Override
-    public void save(PaymentSchedule paymentSchedule){
+    public void save(PaymentSchedule paymentSchedule) {
         paymentScheduleRepository.saveAndFlush(paymentSchedule);
     }
 
@@ -64,6 +64,7 @@ public class PaymentScheduleServiceImpl implements PaymentScheduleService {
         }
         return paymentScheduleRepository.saveAll(paymentList);
     }
+
     private double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 

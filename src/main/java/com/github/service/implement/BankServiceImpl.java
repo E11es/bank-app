@@ -15,17 +15,17 @@ public class BankServiceImpl implements BankService {
     private BankRepository bankRepository;
 
     @Override
-    public List<Bank> findAll(){
+    public List<Bank> findAll() {
         return bankRepository.findAll();
     }
 
     @Override
-    public void delete(Bank bank){
+    public void delete(Bank bank) {
         bankRepository.delete(bank);
     }
 
     @Override
-    public void save(Bank bank){
+    public void save(Bank bank) {
         bankRepository.saveAndFlush(bank);
     }
 }

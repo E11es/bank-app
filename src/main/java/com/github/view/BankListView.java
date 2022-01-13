@@ -15,16 +15,16 @@ import com.vaadin.flow.router.Route;
 @Route(value = "banks")
 @PageTitle("Banks | Application")
 public class BankListView extends VerticalLayout {
-    private Grid<Bank> grid = new Grid<>(Bank.class);
-    private BankForm bankForm;
-    private BankService bankService;
-    private ClientService clientService;
-    private CreditService creditService;
+    private final Grid<Bank> grid = new Grid<>(Bank.class);
+    private final BankForm bankForm;
+    private final BankService bankService;
+    private final ClientService clientService;
+    private final CreditService creditService;
 
     public BankListView(BankService bankService, ClientService clientService, CreditService creditService) {
         this.bankService = bankService;
-        this.clientService=clientService;
-        this.creditService=creditService;
+        this.clientService = clientService;
+        this.creditService = creditService;
         addClassName("bank-list-view");
         setSizeFull();
         configureGrid();
