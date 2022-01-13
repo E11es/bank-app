@@ -4,17 +4,13 @@ import com.github.entity.Client;
 import com.github.entity.Credit;
 import com.github.entity.CreditOffer;
 import com.github.entity.PaymentSchedule;
-import com.github.service.CreditOfferService;
-import com.github.service.PaymentScheduleService;
-import com.vaadin.flow.component.ComponentEvent;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.Key;
+import com.github.service.CreditService;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -28,25 +24,18 @@ import java.util.Objects;
 
 public class CreditOfferForm extends FormLayout {
     private CreditOffer offer;
-    private final PaymentScheduleService paymentScheduleService;
-    private final CreditOfferService creditOfferService;
-
     ComboBox<Client> client = new ComboBox<>("Client");
     ComboBox<Credit> credit = new ComboBox<>("Credit");
-
     IntegerField creditSum = new IntegerField("Credit sum");
     IntegerField creditTerm = new IntegerField("Credit term in months");
     Grid<PaymentSchedule> paymentGrid = new Grid<>(PaymentSchedule.class);
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
-
     Binder<CreditOffer> binder = new BeanValidationBinder<>(CreditOffer.class);
 
-    public CreditOfferForm(List<Client> clients, List<Credit> credits, PaymentScheduleService paymentScheduleService, CreditOfferService creditOfferService) {
-        this.creditOfferService = creditOfferService;
+    public CreditOfferForm(List<Client> clients, CreditService creditService) {
         addClassName("credit-offer-form");
-        this.paymentScheduleService = paymentScheduleService;
         setSizeFull();
         binder.bindInstanceFields(this);
         binder.forField(client)
@@ -66,7 +55,13 @@ public class CreditOfferForm extends FormLayout {
                 .bind(CreditOffer::getCreditTerm, CreditOffer::setCreditTerm);
         client.setItems(clients);
         client.setItemLabelGenerator(Client::getDisplayName);
-        credit.setItems(credits);
+        client.addValueChangeListener(new HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<ComboBox<Client>, Client>>() {
+            @Override
+            public void valueChanged(AbstractField.ComponentValueChangeEvent<ComboBox<Client>, Client> event) {
+                Client client = event.getValue();
+                credit.setItems(creditService.findByBank(client.getBank()));
+            }
+        });
         credit.setItemLabelGenerator(Credit::getCreditLimit);
         paymentGrid.setColumns("paymentDate", "paymentSum", "creditBodySum", "creditPercentSum");
         add(client,

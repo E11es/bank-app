@@ -21,13 +21,9 @@ public class Client {
     private String email;
     private String passport;
 
-    //Создали связь. Разобраться что из себя представляют аргументы в ManyToOne, а также, что такое joinColumn
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Bank.class)
     @JoinColumn(name = "bank_id")
     private Bank bank;
-    //targetEntity - указывает, где "лежит" владеемая сущность
-    //@JoinColumn задаёт имя столбца, в котором будет храниться ссылка на владеемый объект (эта аннотация только у владельца).
-    //Параметр fetch = FetchType.EAGER говорит, что при загрузке владеемого объекта необходимо сразу загрузить и коллекцию владельцев
 
     public UUID getId() {
         return id;

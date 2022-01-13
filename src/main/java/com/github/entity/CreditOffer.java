@@ -3,8 +3,6 @@ package com.github.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,8 +25,6 @@ public class CreditOffer {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Credit.class)
     @JoinColumn(name = "credit_id")
     private Credit credit;
-
-    //@OneToMany(mappedBy = "offerMapped", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = PaymentSchedule.class)
 
 
     public UUID getId() {
@@ -70,12 +66,4 @@ public class CreditOffer {
     public void setCredit(Credit credit) {
         this.credit = credit;
     }
-
-    //public List<PaymentSchedule> getPaymentScheduleList() {
-//        return paymentScheduleList;
-//    }
-//
-//    public void setPaymentScheduleList(List<PaymentSchedule> paymentScheduleList) {
-//        this.paymentScheduleList = paymentScheduleList;
-//    }
 }

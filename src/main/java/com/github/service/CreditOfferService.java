@@ -1,6 +1,5 @@
 package com.github.service;
 
-import com.github.entity.Credit;
 import com.github.entity.CreditOffer;
 import com.github.entity.PaymentSchedule;
 

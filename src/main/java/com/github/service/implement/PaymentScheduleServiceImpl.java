@@ -38,8 +38,8 @@ public class PaymentScheduleServiceImpl implements PaymentScheduleService {
     @Override
     public List<PaymentSchedule> generatePaymentSchedule(CreditOffer offer) {
         double creditSum = offer.getCreditSum();
-        //Calculating monthly payment
-        double monthlyInterest = offer.getCredit().getInterestRate() / (12 * 100); //p
+
+        double monthlyInterest = offer.getCredit().getInterestRate() / (12 * 100);
         double termInMonths = offer.getCreditTerm();
         double monthlyPayment = offer.getCreditSum() * (monthlyInterest + monthlyInterest / (Math.pow((1 + monthlyInterest), termInMonths) - 1));
 

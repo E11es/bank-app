@@ -26,7 +26,7 @@ public class CreditOfferListView extends VerticalLayout {
         setSizeFull();
         configureGrid();
         addClassName("credit-offer-list-view");
-        offerForm = new CreditOfferForm(clientService.findAll(), creditService.findAll(), paymentService, offerService);
+        offerForm = new CreditOfferForm(clientService.findAll(), creditService);
         offerForm.addListener(CreditOfferForm.SaveEvent.class, this::saveCreditOffer);
         offerForm.addListener(CreditOfferForm.DeleteEvent.class, this::deleteCreditOffer);
         offerForm.addListener(CreditOfferForm.CloseEvent.class, e -> closeEditor());

@@ -20,33 +20,25 @@ import com.vaadin.flow.shared.Registration;
 import java.util.List;
 
 
-//Создаю окно макета формы FormLayout
 public class BankForm extends FormLayout {
     private Bank bank;
-    //Поле для имени банка
     TextField name = new TextField("Name");
-    //Создание сетки клиента и сетки кредита
     Grid<Client> clientGrid = new Grid<>(Client.class);
     Grid<Credit> creditGrid = new Grid<>(Credit.class);
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
-
-    //Binder позволяет определять, как привязываются данные к полям в интерфейсе пользователя
     Binder<Bank> binder = new BeanValidationBinder<>(Bank.class);
 
     public void setBank(Bank bank){
         this.bank=bank;
-        //Обновляю значение в каждом компоненте связанного поля
         binder.readBean(bank);
     }
 
-    //Указываю, как заполняется BankForm (конструктор)
     public BankForm(List<Client> clients, List<Credit> credits) {
         addClassName("bank-form");
         setSizeFull();
-        //Я нахожу соответсвующие поля в Client и Credit и "подставляю" их в таблицу?
-        //binder.bindInstanceFields(this);
+        binder.bindInstanceFields(this);
         clientGrid.setItems(clients);
         clientGrid.setColumns("firstName", "lastName", "phone", "email", "passport");
         creditGrid.setItems(credits);
