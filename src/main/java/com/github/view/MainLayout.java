@@ -13,7 +13,7 @@ public class MainLayout extends VerticalLayout {
         RouterLink clientsListLink = new RouterLink("Clients list", ClientListView.class);
         RouterLink offerListLink = new RouterLink("Credit offers list", CreditOfferListView.class);
         setSizeFull();
-        add(clientsListLink, creditsListLink, banksListLink, offerListLink);
+        add(banksListLink, clientsListLink, creditsListLink, offerListLink);
         setPadding(true);
     }
 }

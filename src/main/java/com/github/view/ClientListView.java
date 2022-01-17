@@ -10,6 +10,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 
 @Route(value = "clients")
 @PageTitle("Clients | Application")
@@ -33,7 +34,7 @@ public class ClientListView extends VerticalLayout {
         content.expand(clientForm);
         content.addClassName("content");
         content.setSizeFull();
-        add(getToolBar(), content);
+        add(getLinks(), getToolBar(), content);
         updateList();
         closeEditor();
     }
@@ -91,6 +92,16 @@ public class ClientListView extends VerticalLayout {
         HorizontalLayout toolbar = new HorizontalLayout(addClientButton);
         toolbar.addClassName("toolbar");
         return toolbar;
+    }
+
+    private HorizontalLayout getLinks() {
+        RouterLink banksListLink = new RouterLink("Banks list", BankListView.class);
+        RouterLink creditsListLink = new RouterLink("Credits list", CreditListView.class);
+        RouterLink offerListLink = new RouterLink("Credit offers list", CreditOfferListView.class);
+
+        HorizontalLayout linkList = new HorizontalLayout(banksListLink, creditsListLink, offerListLink);
+        linkList.addClassName("linkList");
+        return linkList;
     }
 
     void addClient() {
