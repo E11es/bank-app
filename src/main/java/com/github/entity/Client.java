@@ -21,7 +21,7 @@ public class Client {
     private String email;
     private String passport;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Bank.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Bank.class)
     @JoinColumn(name = "bank_id")
     private Bank bank;
 

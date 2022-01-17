@@ -88,7 +88,7 @@ public class ClientForm extends FormLayout {
             binder.writeBean(client);
             fireEvent(new SaveEvent(this, client));
         } catch (ValidationException e) {
-            Notification notification = new Notification("All fields are required!", 1000*3, Notification.Position.MIDDLE);
+            Notification notification = new Notification("All fields are required!", 1000 * 3, Notification.Position.MIDDLE);
             notification.open();
         }
     }

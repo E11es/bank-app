@@ -59,7 +59,9 @@ public class CreditOfferForm extends FormLayout {
             @Override
             public void valueChanged(AbstractField.ComponentValueChangeEvent<ComboBox<Client>, Client> event) {
                 Client client = event.getValue();
-                credit.setItems(creditService.findByBank(client.getBank()));
+                if (client != null) {
+                    credit.setItems(creditService.findByBank(client.getBank()));
+                }
             }
         });
         credit.setItemLabelGenerator(Credit::getCreditLimit);
@@ -90,7 +92,9 @@ public class CreditOfferForm extends FormLayout {
 
     public void setCreditOffer(CreditOffer offer) {
         this.offer = offer;
-        binder.readBean(offer);
+        if (offer != null) {
+            binder.readBean(offer);
+        }
     }
 
     private void validateAndSave() {
@@ -98,7 +102,7 @@ public class CreditOfferForm extends FormLayout {
             binder.writeBean(offer);
             fireEvent(new SaveEvent(this, offer));
         } catch (ValidationException e) {
-            Notification notification = new Notification("All fields are required!", 1000*3, Notification.Position.MIDDLE);
+            Notification notification = new Notification("All fields are required!", 1000 * 3, Notification.Position.MIDDLE);
             notification.open();
         }
     }

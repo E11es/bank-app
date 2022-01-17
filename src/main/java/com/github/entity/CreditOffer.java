@@ -18,11 +18,11 @@ public class CreditOffer {
     private Integer creditSum;
     private Integer creditTerm;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Client.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Client.class)
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Credit.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Credit.class)
     @JoinColumn(name = "credit_id")
     private Credit credit;
 

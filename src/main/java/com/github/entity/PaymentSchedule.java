@@ -20,7 +20,7 @@ public class PaymentSchedule {
     private Double paymentSum;
     private Double creditBodySum;
     private Double creditPercentSum;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = CreditOffer.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = CreditOffer.class)
     @JoinColumn(name = "offer_id")
     private CreditOffer offerMapped;
 

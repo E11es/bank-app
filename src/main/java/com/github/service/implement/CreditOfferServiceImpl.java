@@ -31,7 +31,7 @@ public class CreditOfferServiceImpl implements CreditOfferService {
 
     @Override
     public void save(CreditOffer creditOffer) {
-        creditOfferRepository.saveAndFlush(creditOffer);
+        creditOfferRepository.save(creditOffer);
     }
 
     @Override

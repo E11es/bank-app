@@ -10,7 +10,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -41,7 +40,7 @@ public class BankForm extends FormLayout {
         creditGrid.setItems(credits);
         creditGrid.setColumns("limit", "interestRate");
         binder.forField(name)
-                .withValidator(new RegexpValidator("Only letters allowed", "\\[a-zA-Z]+"))
+                .withValidator(new RegexpValidator("Only letters allowed", "[a-zA-Z]+"))
                 .bind(Bank::getName, Bank::setName);
 
         add(name, createButtonsLayout(), clientGrid, creditGrid);

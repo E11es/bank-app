@@ -18,7 +18,7 @@ public class Credit {
     private Integer limit;
     private Double interestRate;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Bank.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Bank.class)
     @JoinColumn(name = "bank_id")
     private Bank bank;
 

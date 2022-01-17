@@ -79,7 +79,7 @@ public class CreditForm extends FormLayout {
             binder.writeBean(credit);
             fireEvent(new SaveEvent(this, credit));
         } catch (ValidationException e) {
-            Notification notification = new Notification("All fields are required!", 1000*3, Notification.Position.MIDDLE);
+            Notification notification = new Notification("All fields are required!", 1000 * 3, Notification.Position.MIDDLE);
             notification.open();
         }
     }

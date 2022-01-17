@@ -7,8 +7,6 @@ import com.github.service.PaymentScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.LinkedList;
@@ -37,6 +35,9 @@ public class PaymentScheduleServiceImpl implements PaymentScheduleService {
 
     @Override
     public List<PaymentSchedule> generatePaymentSchedule(CreditOffer offer) {
+        List<PaymentSchedule> paymentSchedules = paymentScheduleRepository.findByOfferMapped(offer);
+        paymentScheduleRepository.deleteAll(paymentSchedules);
+
         double creditSum = offer.getCreditSum();
 
         double monthlyInterest = offer.getCredit().getInterestRate() / (12 * 100);
